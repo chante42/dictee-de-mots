@@ -32,7 +32,7 @@ var Menu = {
         // selection le bouton
         button.tint = 0x0000ff;      
 
-        NbImages = button.nbImage;
+        Niveau = button.nbImage;
         
     },
     //
@@ -73,7 +73,7 @@ var Menu = {
         if ( this.configFile){
             console.log("config externe loaded"+this.configFile);
             Config = game.cache.getJSON('configJson');
-            NbImagesTotale = Config.objects.length;
+            NbMotsTotale = Config.objects.length;
         }
         // initalisation avec des valeurs par defaut
         else {
@@ -82,24 +82,24 @@ var Menu = {
                 name : "interne",
                 description : "description d'interne",
                 objects : [
-                    {   img : './assets/images/cadeau.png', son : './assets/audio/Fr-cadeau.ogg', nom: 'cadeau'},
-                    {   img : './assets/images/fleur.png', son : './assets/audio/Fr-fleur.ogg', nom: 'fleur'},
-                    {   img : './assets/images/sapin.png', son : './assets/audio/Fr-sapin.ogg', nom: 'sapin'},
-                    {   img : './assets/images/feu.png', son : './assets/audio/Fr-feu.ogg', nom: 'feu'},
-                    {   img : './assets/images/cuillere.png', son : './assets/audio/Fr-cuillere.ogg', nom: 'cuillere'},
-                    {   img : './assets/images/fourchette.png', son : './assets/audio/Fr-fourchette.ogg', nom: 'fourchette'},
-                    {   img : './assets/images/couteau.png', son : './assets/audio/Fr-couteau.ogg', nom: 'couteau'},
-                    {   img : './assets/images/soleil.png', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
-                    {   img : './assets/images/nuage.png', son : './assets/audio/Fr-nuage.ogg', nom: 'nuage'},
-                    {   img : './assets/images/etoile.png', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'},
+                    {   mot :'un cadeau', son : './assets/audio/Fr-cadeau.ogg', nom: 'cadeau'},
+                    {   mot :'une fleur', son : './assets/audio/Fr-fleur.ogg', nom: 'fleur'},
+                    {   mot :'un sapin', son : './assets/audio/Fr-sapin.ogg', nom: 'sapin'},
+                    {   mot :'un feu', son : './assets/audio/Fr-feu.ogg', nom: 'feu'},
+                    {   mot :'une cuillere', son : './assets/audio/Fr-cuillere.ogg', nom: 'cuillere'},
+                    {   mot :'une fourchette', son : './assets/audio/Fr-fourchette.ogg', nom: 'fourchette'},
+                    {   mot :'un couteau', son : './assets/audio/Fr-couteau.ogg', nom: 'couteau'},
+                    {   mot :'un soleil', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
+                    {   mot :'un nuage', son : './assets/audio/Fr-nuage.ogg', nom: 'nuage'},
+                    {   mot :'une etoile', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'},
                 ]
             }
 
-            NbImagesTotale = Config.objects.length;
+            NiveauTotale = Config.objects.length;
         }
 
         // initialise les compteurs:
-        for (i = 0 ; i< NbImagesTotale; i++) {
+        for (i = 0 ; i< NiveauTotale; i++) {
             Config.objects[i].enonce = 0;
             Config.objects[i].bon1 = 0;
             Config.objects[i].bon2 = 0;
@@ -172,16 +172,16 @@ var Menu = {
 
         // Active le bon bouton
         var buttonIndice = [0,0,1,2,3,4,5,6,7,8];
-        this.click(this.NiveauBtn[buttonIndice[NbImages]]);
+        this.click(this.NiveauBtn[buttonIndice[Niveau]]);
 
         // creation de l'ecran d'aide
         var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
         AideEcran = game.add.button(0,0, "aide", this.aideFin, this);
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire l'association entre le son entendue et l'image, en clickant sur cette dernière.\nLes niveaux représentent le nombre d'images présentées avec chaque son.\nLes points:\n - 3 points si bonne reponse au premier essais\n- 2 points si bonne reponse au deuxieme essais.\n- 1 points si bonne reponse au troisième essais.\n\n",  style));
+        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire est de tapper les lettres des mots entendues.\nLes niveaux représentent le nombre d'images présentées avec chaque son.\nLes points:\n - 3 points si bonne reponse au premier essais\n- 2 points si bonne reponse au deuxieme essais.\n- 1 points si bonne reponse au troisième essais.\n\n",  style));
         AideEcran.visible = false;
 
         this.loadConfigJson();
-        
+        game.state.start('Game');        
     },
 
     

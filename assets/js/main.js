@@ -4,11 +4,8 @@ var game;
 
 var LargeurJeuxPixel = 1024 ;
 var HauteurJeuxPixel = 600;
-var NbImagesColonne = 3;
-var NbImagesTotale = 10;
-var HauteurImage = 200;
-var LargeurImage = 200;
-var NbImages = 2;
+var NbMotsTotale = 10;
+var Niveau=2;
 var Score = 0;
 var Config=null;
 // Nombre de ligne dans le tableau de resultataa avant de changer de colonne.
