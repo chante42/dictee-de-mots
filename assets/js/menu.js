@@ -91,15 +91,15 @@ var Menu = {
                     {   mot :'un couteau', son : './assets/audio/Fr-couteau.ogg', nom: 'couteau'},
                     {   mot :'un soleil', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
                     {   mot :'un nuage', son : './assets/audio/Fr-nuage.ogg', nom: 'nuage'},
-                    {   mot :'une etoile', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'},
+                    {   mot :'une etoile', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'}
                 ]
             }
 
-            NiveauTotale = Config.objects.length;
+            NbMotsTotale = Config.objects.length;
         }
 
         // initialise les compteurs:
-        for (i = 0 ; i< NiveauTotale; i++) {
+        for (i = 0 ; i< NbMotsTotale; i++) {
             Config.objects[i].enonce = 0;
             Config.objects[i].bon1 = 0;
             Config.objects[i].bon2 = 0;
@@ -181,7 +181,7 @@ var Menu = {
         AideEcran.visible = false;
 
         this.loadConfigJson();
-        game.state.start('Game');        
+        //game.state.start('Game');        
     },
 
     

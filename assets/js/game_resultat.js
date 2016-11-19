@@ -20,7 +20,7 @@ var Game_Resultat = {
         // recupere tous les nom des objets
         msg =  "|"+ "%-20s".$("Nom item") +' | '+"%-4s".$("Nbr")+' | '+"%-4s".$("bon1")+' | '+"%-4s".$("bon2")+' | '+"%-4s".$("faux")+' |*\n';
         msg =  msg +"|---------------------|------|------|------|------|*\n";
-        for (i = 0 ; i< NbImagesTotale; i++) {
+        for (i = 0 ; i< NbMotsTotale; i++) {
             msg =  msg +"|"+ "%-20s".$(Config.objects[i].nom) +' | '+"%-4d".$(Config.objects[i].enonce)+' | '+"%-4d".$(Config.objects[i].bon1)+' | '+"%-4d".$(Config.objects[i].bon2)+' | '+"%-4d".$(Config.objects[i].faux)+' |*\n';
 
             if (i% MaxResultColumn ==0 && i != 0) {

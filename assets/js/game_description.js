@@ -10,7 +10,7 @@ var Game_Description = {
         var msg='';
         
         // recupere tous les nom des objets
-        for (i = 0 ; i< NbImagesTotale; i++) {
+        for (i = 0 ; i< NbMotsTotale; i++) {
 
             if (i> 0) { msg = msg+', ';}
             msg =  msg + Config.objects[i].nom;

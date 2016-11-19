@@ -55,3 +55,17 @@ String.form = function(str, arr) {
 String.prototype.$ = function() {
     return String.form(this, Array.prototype.slice.call(arguments));
 }
+
+//
+// remplaceStr
+//
+// remplace un caractere d'une chaine
+//
+function remplaceStr(chaine, position, caractere) {
+    if (position == 0) {
+        return caractere + chaine.substring(position+1);
+    }
+    else {
+        return chaine.substring(0,position) + caractere + chaine.substring(position+1);
+    }   
+};
