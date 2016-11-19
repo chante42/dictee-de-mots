@@ -6,6 +6,7 @@ var LargeurJeuxPixel = 1024 ;
 var HauteurJeuxPixel = 600;
 var NbMotsTotale = 10;
 var Niveau=2;
+var NbJoue=0;
 var Score = 0;
 var Config=null;
 // Nombre de ligne dans le tableau de resultataa avant de changer de colonne.

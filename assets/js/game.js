@@ -14,6 +14,7 @@ var Game = {
 	graphicsJeux : 0,
 	chaineAffiche: "",
 	chaineAfficheObj :null,
+	nbLettre:0,
 	//
 	//  preload
 	//
@@ -41,14 +42,22 @@ var Game = {
 	// clickSuivant
 	//
 	clickSuivant : function(button) {
-		button.hide;
-		this.state.start('Game');
+		console.log("clickSuivant : NbJoue :"+NbJoue+" Niveau="+Niveau);
+		if (NbJoue >= Niveau) {
+	   		game.input.keyboard.onDownCallback = null;
+	   		game.state.start('Game_Win');
+      	}
+      	else {
+			button.hide;
+			this.state.start('Game');
+		}
 		
 	},
 	//
 	// clickMenu
 	//
 	clickMenu : function  (button) {
+		game.input.keyboard.onDownCallback = null;
 		game.state.start('Menu');
 	},
         
@@ -91,6 +100,7 @@ var Game = {
 		lettreAttendue = Config.objects[Game.choix].mot[Game.positionMot];
 
 		var key = e.keyCode;
+		Game.nbLettre++;
 		console.log("Lettre attendue :"+lettreAttendue+" - key: '"+key+"' - e.keyCode:"+e.keyCode);
 
 		if (keyboardCharMap[key][0] == lettreAttendue || keyboardCharMap[key][1] == lettreAttendue ) {
@@ -129,12 +139,16 @@ var Game = {
       		if (Game.nbErreur == 0) {Config.objects[Game.choix].bon1++;}
       		if (Game.nbErreur == 1) {Config.objects[Game.choix].bon2++;}
       		if (Game.nbErreur > 1) {Config.objects[Game.choix].faux++;}
+
+      		NbJoue++;
       	}
 
       	// change la couleur de la lettre crourante
       	Game.chaineAfficheObj.addColor('#ff0000',Game.positionMot -1);
       	Game.chaineAfficheObj.addColor('#ffffff',Game.positionMot);
       	Game.chaineAfficheObj.addColor('#ff0000',Game.positionMot +1 );
+
+      
       	
     },
     //
@@ -205,10 +219,9 @@ var Game = {
 	render : function() {
 
 		//game.debug.text('LargeurJeux : '+LargeurJeux, InfoPosX, 40, 'rgb(255,0,0)');
-	    game.debug.text('point : '+Score, this.positionXBouton, 40, { font: "bold 18px sans-serif", fill: '#000000' });
+	    game.debug.text('joué: '+NbJoue+'/'+Niveau, this.positionXBouton, 40, { font: "bold 18px sans-serif", fill: '#000000' });
 
-	    Game.style ={ font: "bold 80px sans-serif", fill: '#ff0000', align: 'center', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40  };
-	    
+	    game.debug.text('Err: '+Game.nbErreur+'/'+Game.nbLettre, this.positionXBouton, 60, { font: "bold 16px sans-serif", fill: '#000000' });
 	},
 
 	//
