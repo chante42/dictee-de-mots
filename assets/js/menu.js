@@ -29,11 +29,34 @@ var Menu = {
             this.NiveauBtn[i].tint = 0xffffff;
         }
 
-        // selection le bouton
-        button.tint = 0x0000ff;      
+        if (button) {
+            // selection le bouton
+            button.tint = 0x0000ff;      
 
-        Niveau = button.nbImage;
-        
+            Niveau = button.niveau;
+            switch (Niveau){
+                case 1: 
+                    NbMotsATrouver = 1;
+                break;
+                case 2: 
+                    NbMotsATrouver = 3;
+                break;
+                case 3: 
+                    NbMotsATrouver = 5;
+                break;
+                case 4: 
+                    NbMotsATrouver = 7;
+                break;
+                case 5: 
+                    NbMotsATrouver = 9;
+                break;
+                case 6: 
+                    NbMotsATrouver = 13;
+                break;
+
+            }
+            NbMotsATrouver
+        }
     },
     //
     // aide
@@ -89,7 +112,7 @@ var Menu = {
                     {   mot :'une cuillere', son : './assets/audio/Fr-cuillere.ogg', nom: 'cuillere'},
                     {   mot :'une fourchette', son : './assets/audio/Fr-fourchette.ogg', nom: 'fourchette'},
                     {   mot :'un couteau', son : './assets/audio/Fr-couteau.ogg', nom: 'couteau'},
-                    {   mot :'un soleil', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
+                    {   mot :'le soleil', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
                     {   mot :'un nuage', son : './assets/audio/Fr-nuage.ogg', nom: 'nuage'},
                     {   mot :'une etoile', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'}
                 ]
@@ -150,36 +173,37 @@ var Menu = {
         // selection du niveau
         this.NiveauBtn[0] = game.add.button(x1 , y+ 10 * ratio, "button", this.click, this);
         this.NiveauBtn[0].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 1", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[0].nbImage= 1;
+        this.NiveauBtn[0].niveau= 1;
 
         this.NiveauBtn[1] = game.add.button(x2, y + 10 * ratio, "button", this.click, this);
         this.NiveauBtn[1].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 2", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[1].nbImage= 3;
+        this.NiveauBtn[1].niveau= 2;
 
         this.NiveauBtn[2] = game.add.button(x1, y + 45 * ratio, "button", this.click, this);
         this.NiveauBtn[2].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 3", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[2].nbImage= 5;
+        this.NiveauBtn[2].niveau= 3;
 
         this.NiveauBtn[3] = game.add.button(x2, y + 45 * ratio, "button", this.click, this);
         this.NiveauBtn[3].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 4", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[3].nbImage= 7;
+        this.NiveauBtn[3].niveau= 4;
 
         this.NiveauBtn[4] = game.add.button(x1, y + 80 * ratio, "button", this.click, this);
         this.NiveauBtn[4].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 5", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[4].nbImage= 11;
+        this.NiveauBtn[4].niveau= 5;
         
         this.NiveauBtn[5] = game.add.button(x2, y + 80 * ratio, "button", this.click, this);
         this.NiveauBtn[5].addChild(new Phaser.Text(this.game, 6, 4, "Niveau 6", { font: "bold 18px sans-serif", fill: '#ffffff' }));
-        this.NiveauBtn[5].nbImage= 13;
+        this.NiveauBtn[5].niveau= 6;
 
         // Active le bon bouton
         var buttonIndice = [0,0,1,2,3,4,5,6,7,8];
         this.click(this.NiveauBtn[buttonIndice[Niveau]]);
+        console.log("Menu.js:Create:Niveau :"+Niveau);
 
         // creation de l'ecran d'aide
         var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
         AideEcran = game.add.button(0,0, "aide", this.aideFin, this);
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire est de tapper les lettres des mots entendues.\nLes niveaux représentent le nombre d'images présentées avec chaque son.\nLes points:\n - 3 points si bonne reponse au premier essais\n- 2 points si bonne reponse au deuxieme essais.\n- 1 points si bonne reponse au troisième essais.\n\n",  style));
+        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire est de tapper les lettres des mots entendues.\nLes niveaux représentent le nombre de son a écrire.\n\n\n",  style));
         AideEcran.visible = false;
 
         this.loadConfigJson();

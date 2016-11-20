@@ -5,6 +5,7 @@ var game;
 var LargeurJeuxPixel = 1024 ;
 var HauteurJeuxPixel = 600;
 var NbMotsTotale = 10;
+var NbMotsATrouver = -1;
 var Niveau=2;
 var NbJoue=0;
 var Score = 0;

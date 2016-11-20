@@ -42,8 +42,8 @@ var Game = {
 	// clickSuivant
 	//
 	clickSuivant : function(button) {
-		console.log("clickSuivant : NbJoue :"+NbJoue+" Niveau="+Niveau);
-		if (NbJoue >= Niveau) {
+		console.log("clickSuivant : NbJoue :"+NbJoue+" NbMotsATrouver="+NbMotsATrouver);
+		if (NbJoue >= NbMotsATrouver) {
 	   		game.input.keyboard.onDownCallback = null;
 	   		game.state.start('Game_Win');
       	}
@@ -101,7 +101,7 @@ var Game = {
 
 		var key = e.keyCode;
 		Game.nbLettre++;
-		console.log("Lettre attendue :"+lettreAttendue+" - key: '"+key+"' - e.keyCode:"+e.keyCode);
+		//console.log("Lettre attendue :"+lettreAttendue+" - key: '"+key+"' - e.keyCode:"+e.keyCode);
 
 		if (keyboardCharMap[key][0] == lettreAttendue || keyboardCharMap[key][1] == lettreAttendue ) {
 			
@@ -109,11 +109,11 @@ var Game = {
 			Game.chaineAffiche = remplaceStr(Game.chaineAffiche,Game.positionMot, lettreAttendue);
 			Game.chaineAfficheObj.text = Game.chaineAffiche;
 			Game.positionMot++;
-			console.log('Bonne touche : chaineAffiche :'+ Game.chaineAffiche);
+			//console.log('Bonne touche : chaineAffiche :'+ Game.chaineAffiche);
 
 			// si espace passe ce caractère
 			lettreAttendue = Config.objects[Game.choix].mot[Game.positionMot];
-			console.log('char: "'+lettreAttendue+'"');
+			//console.log('char: "'+lettreAttendue+'"');
 			if (lettreAttendue == ' ') {
 				// change la couleur de la lettre crourante
 		      	Game.chaineAfficheObj.addColor('#ff0000',Game.positionMot -1);
@@ -123,7 +123,6 @@ var Game = {
 			}
 		}
 		else {
-			console.log(e.keyCode);
 			Game.recommencerSon.play();
 			Game.nbErreur++;
 		}
@@ -141,6 +140,7 @@ var Game = {
       		if (Game.nbErreur > 1) {Config.objects[Game.choix].faux++;}
 
       		NbJoue++;
+      		game.input.keyboard.onDownCallback = null;
       	}
 
       	// change la couleur de la lettre crourante
@@ -152,9 +152,10 @@ var Game = {
       	
     },
     //
-    // choisiMot
+    // choisiMotHazad
     //
-    choisiMot : function () {
+    // tire au sort un mot et evite que le même mot sot demandé 2 fois.
+    choisiMotHazard : function (nbItemTotal) {
 
     	do {
     		Game.choix = noImg = game.rnd.integerInRange(0, NbMotsTotale -1); 
@@ -164,7 +165,55 @@ var Game = {
 
     	Game.chaineAffiche = '';
 		Game.positionMot = 0;
-		Game.nbErreur = 0;
+    	Config.objects[Game.choix].enonce++;
+    },
+    //
+    // choisiMotTous
+    //
+    // tire au sort un mot et s'assure que tous les mot soit vu au moins une fois avnt de presenter un 
+    // mot déjà vu
+    choisiMotTous : function (nbItemTotal) {
+    	var i=-1;
+    	var min = 9999;
+    	var list =[];
+       	// recherche le Plus petit nombre d'occurence dans les stats
+    	for (i = 0 ; i< nbItemTotal; i++) {
+    		if (min > Config.objects[i].enonce) { min = Config.objects[i].enonce}
+    	}
+
+    	// Construit la liste avec les mot d'occurence Min
+    	for (i = 0 ; i< nbItemTotal; i++) {
+    		if (Config.objects[i].enonce == min) { 
+    			list.push(i);
+    		}
+    	} // fin FOR i
+    	
+    	do {
+    		Game.choix = list[game.rnd.integerInRange(0, list.length -1)];
+    	} while (Game.lastChoix == Game.choix);
+		Game.lastChoix = Game.choix    	
+
+		console.log("choisiMotTous -> choix = "+Game.choix+", list: "+list);
+    	Game.chaineAffiche = '';
+		Game.positionMot = 0;
+    	Config.objects[Game.choix].enonce++;
+    },
+    //
+    // choisiMotErreur
+    //
+    // tire au sort un mot et s'assure que tous les mot soit vu au moins une fois avant de presenter un 
+    // mot déjà vu
+    // Mais Laisse dans la liste les mots ou il y a eu une erreur.
+    choisiMotErreur : function (nbItemTotal) {
+    	// A CONSTRUIRE //
+    	do {
+    		Game.choix = noImg = game.rnd.integerInRange(0, NbMotsTotale -1); 
+    	} while (Game.lastChoix == Game.choix);
+		Game.lastChoix = Game.choix    	
+
+
+    	Game.chaineAffiche = '';
+		Game.positionMot = 0;
     	Config.objects[Game.choix].enonce++;
     },
 	//
@@ -180,7 +229,8 @@ var Game = {
 		this.recommencerSon = game.add.audio('recommencer');
 		Game.recommencerSon = this.recommencerSon;
 
-		Game.choisiMot();
+		//Game.choisiMotHazard(NbMotsTotale);
+		Game.choisiMotTous(NbMotsTotale);
 		
 		
 		this.menuCreate();
@@ -219,9 +269,10 @@ var Game = {
 	render : function() {
 
 		//game.debug.text('LargeurJeux : '+LargeurJeux, InfoPosX, 40, 'rgb(255,0,0)');
-	    game.debug.text('joué: '+NbJoue+'/'+Niveau, this.positionXBouton, 40, { font: "bold 18px sans-serif", fill: '#000000' });
+	    game.debug.text('Niveau: '+Niveau, this.positionXBouton, 25, { font: "bold 18px sans-serif", fill: '#000000' });
+	    game.debug.text('Joué: '+NbJoue+'/'+NbMotsATrouver, this.positionXBouton, 45, { font: "bold 18px sans-serif", fill: '#000000' });
 
-	    game.debug.text('Err: '+Game.nbErreur+'/'+Game.nbLettre, this.positionXBouton, 60, { font: "bold 16px sans-serif", fill: '#000000' });
+	    game.debug.text('Err: '+Game.nbErreur+'/'+Game.nbLettre, this.positionXBouton, 65, { font: "bold 16px sans-serif", fill: '#000000' });
 	},
 
 	//
