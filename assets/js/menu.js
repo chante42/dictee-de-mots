@@ -109,12 +109,12 @@ var Menu = {
                     {   mot :'une fleur', son : './assets/audio/Fr-fleur.ogg', nom: 'fleur'},
                     {   mot :'un sapin', son : './assets/audio/Fr-sapin.ogg', nom: 'sapin'},
                     {   mot :'un feu', son : './assets/audio/Fr-feu.ogg', nom: 'feu'},
-                    {   mot :'une cuillere', son : './assets/audio/Fr-cuillere.ogg', nom: 'cuillere'},
+                    {   mot :'une cuillère', son : './assets/audio/Fr-cuillere.ogg', nom: 'cuillere'},
                     {   mot :'une fourchette', son : './assets/audio/Fr-fourchette.ogg', nom: 'fourchette'},
                     {   mot :'un couteau', son : './assets/audio/Fr-couteau.ogg', nom: 'couteau'},
                     {   mot :'le soleil', son : './assets/audio/Fr-soleil.ogg', nom: 'soleil'},
                     {   mot :'un nuage', son : './assets/audio/Fr-nuage.ogg', nom: 'nuage'},
-                    {   mot :'une etoile', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'}
+                    {   mot :'une étoile', son : './assets/audio/Fr-etoile.ogg', nom: 'etoile'}
                 ]
             }
 

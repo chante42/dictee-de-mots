@@ -15,6 +15,7 @@ var Game = {
 	chaineAffiche: "",
 	chaineAfficheObj :null,
 	nbLettre:0,
+	nbErreur:0,
 	//
 	//  preload
 	//
@@ -123,6 +124,7 @@ var Game = {
 			}
 		}
 		else {
+			console.log("keyDox -> code "+e.keyCode)
 			Game.recommencerSon.play();
 			Game.nbErreur++;
 		}
