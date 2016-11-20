@@ -46,6 +46,7 @@ var Game = {
 		console.log("clickSuivant : NbJoue :"+NbJoue+" NbMotsATrouver="+NbMotsATrouver);
 		Game.motTrouve = false;
 		if (NbJoue >= NbMotsATrouver) {
+			game.input.keyboard.onDownCallback = null;
 	   		game.state.start('Game_Win');
       	}
       	else {
@@ -112,9 +113,17 @@ var Game = {
 		}
 		
 		
-		Game.nbLettre++;
+		
 		//console.log("Lettre attendue :"+lettreAttendue+" - key: '"+key+"' - e.keyCode:"+e.keyCode);
 
+		// si Espace 
+		if (key == 32 && Game.positionMot >= 0 && Config.objects[Game.choix].mot[Game.positionMot -1] ==" ") {
+			
+			return;
+
+		}
+
+		Game.nbLettre++;
 		if (keyboardCharMap[key][0] == lettreAttendue || keyboardCharMap[key][1] == lettreAttendue ) {
 			
 
