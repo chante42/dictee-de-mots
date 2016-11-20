@@ -51,7 +51,7 @@ var Menu = {
                     NbMotsATrouver = 9;
                 break;
                 case 6: 
-                    NbMotsATrouver = 13;
+                    NbMotsATrouver = NbMotsTotale;
                 break;
 
             }

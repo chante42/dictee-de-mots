@@ -11,7 +11,7 @@ var NbJoue=0;
 var Score = 0;
 var Config=null;
 // Nombre de ligne dans le tableau de resultataa avant de changer de colonne.
-var MaxResultColumn = 12;
+var MaxResultColumn = 19;
 
 // Create a new game instance 600px wide and 450px tall:
 game = new Phaser.Game(LargeurJeuxPixel, HauteurJeuxPixel, Phaser.CANVAS, 'phaser-example');

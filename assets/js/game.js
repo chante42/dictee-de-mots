@@ -44,12 +44,12 @@ var Game = {
 	//
 	clickSuivant : function(button) {
 		console.log("clickSuivant : NbJoue :"+NbJoue+" NbMotsATrouver="+NbMotsATrouver);
+		Game.motTrouve = false;
 		if (NbJoue >= NbMotsATrouver) {
-	   		game.input.keyboard.onDownCallback = null;
 	   		game.state.start('Game_Win');
       	}
       	else {
-			button.hide;
+			if (button) {button.hide;}
 			this.state.start('Game');
 		}
 		
@@ -59,6 +59,7 @@ var Game = {
 	//
 	clickMenu : function  (button) {
 		game.input.keyboard.onDownCallback = null;
+		Game.motTrouve = false;
 		game.state.start('Menu');
 	},
         
@@ -99,8 +100,18 @@ var Game = {
 	//
 	keyDown : function(e) {        
 		lettreAttendue = Config.objects[Game.choix].mot[Game.positionMot];
-
 		var key = e.keyCode;
+
+		if (Game.motTrouve == true ) {
+			// si touche "ENTREE" suivant 
+			if (key == 13) {
+				Game.clickSuivant(this.suivantBtn);
+			}
+	
+			return null;
+		}
+		
+		
 		Game.nbLettre++;
 		//console.log("Lettre attendue :"+lettreAttendue+" - key: '"+key+"' - e.keyCode:"+e.keyCode);
 
@@ -141,8 +152,8 @@ var Game = {
       		if (Game.nbErreur == 1) {Config.objects[Game.choix].bon2++;}
       		if (Game.nbErreur > 1) {Config.objects[Game.choix].faux++;}
 
+      		Game.motTrouve =true;
       		NbJoue++;
-      		game.input.keyboard.onDownCallback = null;
       	}
 
       	// change la couleur de la lettre crourante
@@ -256,7 +267,7 @@ var Game = {
  		Game.chaineAfficheObj.addColor('#ff0000',Game.positionMot+1);
  		Game.chaineAfficheObj.anchor.set(0.5);
  		
-        game.input.keyboard.onDownCallback = this.keyDown;
+ 		game.input.keyboard.onDownCallback = this.keyDown;
 	},
 
 	//
