@@ -314,6 +314,7 @@ var Game = {
 	//
 	//
 	shutdown: function () { 
+		console.log("shutdown");
 		this.rejoueBtn.kill();
 		this.rejoueBtn = null;
 
@@ -329,6 +330,7 @@ var Game = {
 		this.graphicsJeux = null;
 		this.graphicsPoint = null;
 
+		
 	}
 	   
 }
