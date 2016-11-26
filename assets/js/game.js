@@ -16,8 +16,6 @@ var Game = {
 	chaineAfficheObj :null,
 	nbLettre:0,
 	nbErreur:0,
-	nbLettreTotal:0,
-	nbErreurTotal:0,
 	chaineAide :"",
 	//
 	//  preload
@@ -48,14 +46,14 @@ var Game = {
 	clickSuivant : function(button) {
 		console.log("clickSuivant : NbJoue :"+NbJoue+" NbMotsATrouver="+NbMotsATrouver);
 		Game.motTrouve = false;
-		Game.nbErreurTotal = Game.nbErreurTotal+Game.nbErreur;
+		Config.nbErreurTotal = Config.nbErreurTotal+Game.nbErreur;
 		Game.nbErreur = 0;
-		Game.nbLettreTotal = Game.nbLettreTotal + Game.nbLettre
+		Config.nbLettreTotal = Config.nbLettreTotal + Game.nbLettre
 		Game.nbLettre = 0;
 		if (NbJoue >= NbMotsATrouver) {
 
 			game.input.keyboard.onDownCallback = null;
-			if (Game.nbErreurTotal == 0) {
+			if (Config.nbErreurTotal == 0) {
 		   		game.state.start('Game_Win');
 		   	}else {
 		   		game.state.start('Game_Over');
@@ -331,7 +329,7 @@ var Game = {
 	    game.debug.text('Joué: '+NbJoue+'/'+NbMotsATrouver, this.positionXBouton, 45, { font: "bold 18px sans-serif", fill: '#000000' });
 	    game.debug.text('Err: '+Game.nbErreur+'/'+Game.nbLettre, this.positionXBouton, 65, { font: "bold 16px sans-serif", fill: '#000000' });
 	    game.debug.text('Err Total:', this.positionXBouton, 85, { font: "bold 16px sans-serif", fill: '#000000'});
-	    game.debug.text(Game.nbErreurTotal+'/'+Game.nbLettreTotal, this.positionXBouton, 105, { font: "bold 16px sans-serif", fill: '#000000'});
+	    game.debug.text(Config.nbErreurTotal+'/'+Config.nbLettreTotal, this.positionXBouton, 105, { font: "bold 16px sans-serif", fill: '#000000'});
 	},
 
 	//

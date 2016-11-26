@@ -128,6 +128,9 @@ var Menu = {
             Config.objects[i].bon2 = 0;
             Config.objects[i].faux = 0;
         }
+        // initialise les stat globale
+        Config.nbErreurTotal = 0;
+        Config.nbLettreTotal = 0;
     },
     //
     //
