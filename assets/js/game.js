@@ -18,6 +18,7 @@ var Game = {
 	nbErreur:0,
 	nbLettreTotal:0,
 	nbErreurTotal:0,
+	chaineAide :"",
 	//
 	//  preload
 	//
@@ -52,8 +53,13 @@ var Game = {
 		Game.nbLettreTotal = Game.nbLettreTotal + Game.nbLettre
 		Game.nbLettre = 0;
 		if (NbJoue >= NbMotsATrouver) {
+
 			game.input.keyboard.onDownCallback = null;
-	   		game.state.start('Game_Win');
+			if (Game.nbErreurTotal == 0) {
+		   		game.state.start('Game_Win');
+		   	}else {
+		   		game.state.start('Game_Over');
+		   	}
       	}
       	else {
 			if (button) {button.hide;}
@@ -76,16 +82,16 @@ var Game = {
 	menuCreate : function() {
 		this.positionXBouton =  LargeurJeuxPixel - 110,
 		// bouton pour  retoruner au menu 
-		this.menuBtn = game.add.button(this.positionXBouton, 90, "button", this.clickMenu, this);
+		this.menuBtn = game.add.button(this.positionXBouton, 120, "button", this.clickMenu, this);
         this.menuBtn.addChild(new Phaser.Text(this.game, 6, 4, "Menu", { font: "bold 18px sans-serif", fill: '#ffffff' }));
         this.menuBtn.tint = 0x00FFFF;
 
 		// bouton pour relancer le son du mot.
-		this.rejoueBtn = game.add.button( this.positionXBouton , 130, "button", this.clickRepete, this);
+		this.rejoueBtn = game.add.button( this.positionXBouton , 160, "button", this.clickRepete, this);
         this.rejoueBtn.addChild(new Phaser.Text(this.game, 6, 4, "Répéter", { font: "bold 18px sans-serif", fill: '#ffffff' }));
 
         // bouton pour le mot suivant
-		this.suivantBtn = game.add.button(this.positionXBouton, 170, "button", this.clickSuivant, this);
+		this.suivantBtn = game.add.button(this.positionXBouton, 200, "button", this.clickSuivant, this);
         this.suivantBtn.addChild(new Phaser.Text(this.game, 6, 4, "Suivant", { font: "bold 18px sans-serif", fill: '#ffffff' }));
         this.suivantBtn.visible = false;
         this.suivantBtn.tint = 0x555555;
@@ -141,6 +147,10 @@ var Game = {
 			// si espace passe ce caractère
 			lettreAttendue = Config.objects[Game.choix].mot[Game.positionMot];
 			//console.log('char: "'+lettreAttendue+'"');
+
+			// efface l'aide eventuelle
+			Game.chaineAide ="";
+			Game.chaineAideObj.text = Game.chaineAide;
 			if (lettreAttendue == ' ') {
 				// change la couleur de la lettre crourante
 		      	Game.chaineAfficheObj.addColor('#ff0000',Game.positionMot -1);
@@ -159,6 +169,15 @@ var Game = {
 				console.log("Mauvaise lettre keyDox -> code "+e.keyCode + "lettre : "+keyboardCharMap[key][0]+ " ou "+ keyboardCharMap[key][1])
 				Game.recommencerSon.play();
 				Game.nbErreur++;
+
+				if (Game.nbErreur > 2) {
+					Game.chaineAide =  Game.chaineAffiche;
+					Game.chaineAide = remplaceStr(Game.chaineAffiche,Game.positionMot, Config.objects[Game.choix].mot[Game.positionMot])
+					Game.chaineAideObj.text = Game.chaineAide;
+				}else {
+					Game.chaineAide ="";
+					Game.chaineAideObj.text = Game.chaineAide;
+				}
 			}
 		} // fin else lettre attendue
       
@@ -283,10 +302,14 @@ var Game = {
 		}
 
 		Game.style ={ font: "bold 80px sans-serif", fill: '#ff0000', align: "center"};
-
  		Game.chaineAfficheObj = game.add.text(game.world.centerX, 200, Game.chaineAffiche, Game.style);
- 		Game.chaineAfficheObj.addColor('#ffffff',Game.positionMot);
+		Game.chaineAfficheObj.addColor('#ffffff',Game.positionMot);
  		Game.chaineAfficheObj.addColor('#ff0000',Game.positionMot+1);
+
+ 		// chaine Aide en cas de plus d 2 erreurs
+ 		var style ={ font: "bold 80px sans-serif", fill: '#666666', align: "center"};
+ 		Game.chaineAideObj = game.add.text(20, 20, Game.chaineAide, style);
+ 		
  		Game.chaineAfficheObj.anchor.set(0.5);
  		
  		game.input.keyboard.onDownCallback = this.keyDown;
@@ -307,7 +330,8 @@ var Game = {
 	    game.debug.text('Niveau: '+Niveau, this.positionXBouton, 25, { font: "bold 18px sans-serif", fill: '#000000' });
 	    game.debug.text('Joué: '+NbJoue+'/'+NbMotsATrouver, this.positionXBouton, 45, { font: "bold 18px sans-serif", fill: '#000000' });
 	    game.debug.text('Err: '+Game.nbErreur+'/'+Game.nbLettre, this.positionXBouton, 65, { font: "bold 16px sans-serif", fill: '#000000' });
-	    game.debug.text('Err Tot: '+Game.nbErreurTotal+'/'+Game.nbLettreTotal, this.positionXBouton, 85, { font: "bold 16px sans-serif", fill: '#000000' });
+	    game.debug.text('Err Total:', this.positionXBouton, 85, { font: "bold 16px sans-serif", fill: '#000000'});
+	    game.debug.text(Game.nbErreurTotal+'/'+Game.nbLettreTotal, this.positionXBouton, 105, { font: "bold 16px sans-serif", fill: '#000000'});
 	},
 
 	//

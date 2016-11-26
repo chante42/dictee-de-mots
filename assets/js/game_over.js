@@ -3,7 +3,7 @@ var Game_Over = {
     preload : function() {
         // Load the needed image for this game screen.
         game.load.image('gameover', './assets/images/game_over.png');
-        game.load.audio('audioLoose', 'assets/audio/Sad_Trombone_2.mp3');
+        game.load.audio('audioLoose', './assets/audio/Sad_Trombone_2.mp3');
     },
 
     create : function() {

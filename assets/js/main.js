@@ -31,10 +31,5 @@ game.state.add('Game_Resultat', Game_Resultat);
 game.state.add('Game_Description', Game_Description);
 
 
-
-
-        
-
-
 game.state.start('Menu');
 //game.state.start('Game');
