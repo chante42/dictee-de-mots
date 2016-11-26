@@ -16,6 +16,8 @@ var Game = {
 	chaineAfficheObj :null,
 	nbLettre:0,
 	nbErreur:0,
+	nbLettreTotal:0,
+	nbErreurTotal:0,
 	//
 	//  preload
 	//
@@ -45,6 +47,10 @@ var Game = {
 	clickSuivant : function(button) {
 		console.log("clickSuivant : NbJoue :"+NbJoue+" NbMotsATrouver="+NbMotsATrouver);
 		Game.motTrouve = false;
+		Game.nbErreurTotal = Game.nbErreurTotal+Game.nbErreur;
+		Game.nbErreur = 0;
+		Game.nbLettreTotal = Game.nbLettreTotal + Game.nbLettre
+		Game.nbLettre = 0;
 		if (NbJoue >= NbMotsATrouver) {
 			game.input.keyboard.onDownCallback = null;
 	   		game.state.start('Game_Win');
@@ -144,10 +150,17 @@ var Game = {
 			}
 		}
 		else {
-			console.log("keyDox -> code "+e.keyCode)
-			Game.recommencerSon.play();
-			Game.nbErreur++;
-		}
+
+			// si touche represenant une lette 
+			if (keyboardCharMap[key][0] == "" && keyboardCharMap[key][1] == "") {
+					console.log("lettre bizare keyDox -> code "+e.keyCode )
+
+			} else {
+				console.log("Mauvaise lettre keyDox -> code "+e.keyCode + "lettre : "+keyboardCharMap[key][0]+ " ou "+ keyboardCharMap[key][1])
+				Game.recommencerSon.play();
+				Game.nbErreur++;
+			}
+		} // fin else lettre attendue
       
 
 		//
@@ -293,8 +306,8 @@ var Game = {
 		//game.debug.text('LargeurJeux : '+LargeurJeux, InfoPosX, 40, 'rgb(255,0,0)');
 	    game.debug.text('Niveau: '+Niveau, this.positionXBouton, 25, { font: "bold 18px sans-serif", fill: '#000000' });
 	    game.debug.text('Joué: '+NbJoue+'/'+NbMotsATrouver, this.positionXBouton, 45, { font: "bold 18px sans-serif", fill: '#000000' });
-
 	    game.debug.text('Err: '+Game.nbErreur+'/'+Game.nbLettre, this.positionXBouton, 65, { font: "bold 16px sans-serif", fill: '#000000' });
+	    game.debug.text('Err Tot: '+Game.nbErreurTotal+'/'+Game.nbLettreTotal, this.positionXBouton, 85, { font: "bold 16px sans-serif", fill: '#000000' });
 	},
 
 	//
