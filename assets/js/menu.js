@@ -131,6 +131,8 @@ var Menu = {
         // initialise les stat globale
         Config.nbErreurTotal = 0;
         Config.nbLettreTotal = 0;
+        Config.nbLettreJeux = 0;
+        Config.nbErreurJeux = 0;
     },
     //
     //
@@ -204,9 +206,14 @@ var Menu = {
         console.log("Menu.js:Create:Niveau :"+Niveau);
 
         // creation de l'ecran d'aide
-        var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
+        var style = { font: "bold "+11*ratio*ratio+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 60 };
         AideEcran = game.add.button(0,0, "aide", this.aideFin, this);
-        AideEcran.addChild(new Phaser.Text(this.game, 10, 20 * ratio, "Aide\n\nL'objectif est faire est de tapper les lettres des mots entendues.\nLes niveaux représentent le nombre de son a écrire.\n\n\n",  style));
+        AideEcran.addChild(new Phaser.Text(this.game, 30, 20 * ratio, "Aide :",style));
+        AideEcran.addChild(new Phaser.Text(this.game, 50, 50 * ratio, "- L'objectif est faire est de tapper les lettres des mots entendues.\n- Aux bout de 3 erreurs, apparait en haut a gauche le mot avec les lettres dejà trouvées et la lettre qui pose problème.\nAprès à chaque erreur sur ce mot, la lettre suivante apparait.\n- Les niveaux représente le nombre de mot/son à écrire.",  style));
+      
+        style = { font: "bold "+16+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
+        AideEcran.addChild(new Phaser.Text(this.game, LargeurJeuxPixel/6, HauteurJeuxPixel/6 *5 , "cliquez pour recommencer", style));
+
         AideEcran.visible = false;
 
         this.loadConfigJson();

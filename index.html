@@ -11,6 +11,25 @@
 			padding:0px;
 			margin:0px;
 		}
+		.border.canvas {
+			border-style : solid;
+			border-size : 50px;
+			border-color : #000000;
+		}
+		.titre {
+			background: #80ccff;
+			color : #000000;
+			font-weight: bold;
+			font-size : 35px;
+			text-align: center;
+			border-radius: 10px;
+        	padding: 5px;
+			position: absolute;
+			top: 20px;
+	        left: 50%;
+	        margin-right: -50%;
+	        transform: translate(-50%, -50%);
+		}
 	</style>
 	<title>Dictée de mots</title>
 	<script src="assets/js/jquery.min.js"></script>
@@ -28,11 +47,15 @@
 
 </head>
 <body id="page1" >
+	<div>
+		
+			<div class="titre">Dictée de mots</div>
+			<hr></hr>
+	</div>
 	<center>
-		<div><h2>Dictée de mots</h2><div>
-		<hr></hr>
-		<div id="phaser-example"></div>
+		<div id="phaser-example" class="border" ></div>
 	<center>
+	
 
 	<!----------  FIREBASE ------>
 	<!--  <script src="https://www.gstatic.com/firebasejs/3.5.3/firebase.js"></script>  -->

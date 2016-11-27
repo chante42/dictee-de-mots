@@ -32,7 +32,7 @@ var Game = {
 			game.load.audio('son'+i, Config.objects[i].son);
 			console.log("son"+i+':'+Config.objects[i].son);
 		}
-		
+
 	},
 	//
 	// clickRepete
@@ -53,8 +53,11 @@ var Game = {
 		if (NbJoue >= NbMotsATrouver) {
 
 			game.input.keyboard.onDownCallback = null;
+			Config.nbErreurJeux += Config.nbErreurTotal
+			Config.nbLettreJeux += Config.nbLettreTotal;
+			
 			if (Config.nbErreurTotal == 0) {
-		   		game.state.start('Game_Win');
+				game.state.start('Game_Win');
 		   	}else {
 		   		game.state.start('Game_Over');
 		   	}

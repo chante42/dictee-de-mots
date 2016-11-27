@@ -21,7 +21,8 @@ var Game_Description = {
 
         var style = { font: "bold "+28+"px sans-serif", fill: '#000000' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
         // Add text with information about the score from last game.
-        game.add.text(39, 30, 'Nom :'+Config.name+"\nDescription : "+Config.description+"\n"+"Liste des mot et des sons :\n"+msg,style);
+        game.add.text(30, 30, 'Nom : '+Config.name+"\nDescription : "+Config.description+"\n"+"Liste des mot et des sons :\n",style);
+        game.add.text(50, 140, msg,style);
 
         var style = { font: "bold "+16+"px sans-serif", fill: '#ffffff' , align: 'left', wordWrap: true, wordWrapWidth: LargeurJeuxPixel - 40 };
         game.add.text(LargeurJeuxPixel/6, HauteurJeuxPixel/6 *5 , "cliquez pour recommencer", style);
