@@ -36,9 +36,26 @@ var Game_Resultat = {
 
 
         game.add.text(LargeurJeuxPixel/6, HauteurJeuxPixel -20  , "cliquez pour retourner au menu", { font: "bold 12px sans-serif", fill: "#fff", align: "center" });
+
+
+
+        //el= document.getElementById("phaser-example");
+        //el.style.visibility = "hidden";
+
+        //el = document.getElementById("overlay");
+        //el.innerHTML = "<button class = 'close' onclick = 'Game_Resultat.startGame()'><h1>totototototototototoAAAAAAAA</h1><br> stat</button>";
+        //el.style.visibility = "visible";
+        //window.scrollTo(0, 0);
+        
     },
 
     startGame: function () {
+
+        el = document.getElementById("phaser-example");
+        el.style.visibility = "visible";
+
+        el=document.getElementById("overlay");
+        el.style.visibility = "hidden";
 
         // Change the state back to Game.
         this.state.start('Menu');

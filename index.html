@@ -28,8 +28,27 @@
 			top: 20px;
 	        left: 50%;
 	        margin-right: -50%;
+	        z-index: 3;
 	        transform: translate(-50%, -50%);
 		}
+
+		#overlay {
+	        visibility: hidden;
+	        position: absolute;
+	        top: 20px;
+	        bottom: 20px;
+	        width:1024px;
+	        height:600px;
+	        margin-left: 23%;
+  			margin-right: auto;
+	        text-align:center;
+	        background-color: #090909;
+	        z-index: 2;
+	        /*overflow-y: scroll;*/
+	        /* box-shadow: -1px 2px 15px -1px #000;*/
+	    }
+
+    }
 	</style>
 	<title>Dictée de mots</title>
 	<script src="assets/js/jquery.min.js"></script>
@@ -54,6 +73,7 @@
 	</div>
 	<center>
 		<div id="phaser-example" class="border" ></div>
+		<div id="overlay"></div>
 	<center>
 	
 

@@ -26,6 +26,7 @@ var Game = {
 		game.load.audio('bravo', 'assets/audio/Fr-bravo.ogg');
 		game.load.audio('recommencer', 'assets/audio/Fr-recommencer.ogg');
 		game.load.image('aide', './assets/images/aide.png');
+		game.load.image('iconeDictee', './assets/images/dictee.png');
   
 	    // chargement des sons
 	    for (i = 0 ; i< NbMotsTotale; i++) {
@@ -98,8 +99,11 @@ var Game = {
         this.suivantBtn.tint = 0x555555;
         Game.suivantBtn = this.suivantBtn;
 
+        // place l'icone
+        this.imageDictee = game.add.button(this.positionXBouton + 4 , HauteurJeuxPixel - 120 , "iconeDictee", null, this);
+
         // dessine u contour a la zone point et bouton
-        this.graphicsPoint = game.add.graphics(this.positionXBouton -5, 4);
+        this.graphicsPoint = game.add.graphics(this.positionXBouton - 5, 4);
         this.graphicsPoint.lineStyle(2, 0x0000FF, 1);
 	    this.graphicsPoint.drawRect(0, 0, LargeurJeuxPixel - this.positionXBouton -3, HauteurJeuxPixel - 30	);
 
